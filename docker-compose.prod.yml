@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  kpi-redis:
+    image: redis:7.2-alpine
+    env_file:
+      - .env
+    volumes:
+      - "./redis_data:/data"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 1m
+      timeout: 5s
+      retries: 5
+    networks:
+      - kpi-network
+
+  kpi-postgres:
+    image: postgres:16.1-alpine
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - "./postgres_data:/var/lib/postgresql/data"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 1m
+      timeout: 5s
+      retries: 5
+    networks:
+      - kpi-network
+
+  # Django Application
+  web:
+    image: gaybullayevbehzod/kpi-tiet-django:latest
+    volumes:
+      - "./data:/app/data"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - kpi-postgres
+      - kpi-redis
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - kpi-network
+
+networks:
+  kpi-network:

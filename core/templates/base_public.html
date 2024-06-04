@@ -1,0 +1,189 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8`">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="{% static 'fonts/Montserrat/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/HelveticaNeueCyr/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/public.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+          integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon" sizes="64x64">
+
+    <title>{% block title %}TERDPI KPI{% endblock %}</title>
+
+    {% block styles %}{% endblock %}
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg bg-primary">
+    <div class="container-fluid container-lg">
+        <a class="navbar-brand" href="/{{ LANGUAGE_CODE }}/">
+            <img src="{% static 'images/logo.png' %}" alt="" class="d-inline-block align-text-top" width="80">
+        </a>
+    <h3>Termiz davlat pedagogika instituti</h3>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-0 ms-auto mb-2 mb-lg-0 gap-3 align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page"
+                       href="/{{ LANGUAGE_CODE }}/">{% trans 'Главная' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'post_public:list' %}">{% trans 'Последняя активность' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'category_public:static' %}">{% trans 'Статистика' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home_public:teacher_list' %}">{% trans 'Преподаватели' %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home_public:department_list' %}">{% trans 'Кафедры' %}</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item ms-5 dropdown">
+                        <a class="nav-link dropdown-toggle btn btn-outline-primary text-white border border-white"
+                           href="#"
+                           role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <i class="fa fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if request.user.is_superuser %}
+                                <li>
+                                    <a class="dropdown-item" href="/{{ LANGUAGE_CODE }}/super-admin/">
+                                        <i class="fa fa-user-shield"></i> {% trans 'Супер-админ' %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'index_admin:index' %}">
+                                        <i class="fa fa-dashboard"></i> {% trans 'Панель управление' %}
+                                    </a>
+                                </li>
+                            {% elif request.user.is_teacher %}
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'post_public:my_list' %}">
+                                        <i class="fa fa-newspaper"></i> {% trans 'Публикации' %}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'oauth:profile' %}">
+                                    <i class="fa fa-user"></i> {% trans 'Профиль' %}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'oauth:logout' %}">
+                                    <i class="fa fa-sign-out"></i> {% trans 'Выйти' %}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item ms-5">
+                        <a class="btn btn-outline-primary text-white border border-white"
+                           href="{% url 'oauth:login' %}">
+                            <i class="fa fa-sign-in"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-uppercase dropdown-toggle btn btn-outline-primary text-white border border-white"
+                       href="#"
+                       role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="fa fa-globe"></i>
+                        {{ LANGUAGE_CODE }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for language in languages %}
+                            {% if language.code == LANGUAGE_CODE %}
+                                <li>
+                                    <a class="dropdown-item text-uppercase active" data-lang="{{ language.code }}"
+                                       href="/{{ language.code }}/">{{ language.code }}</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a class="dropdown-item text-uppercase" data-lang="{{ language.code }}"
+                                       href="/{{ language.code }}/">{{ language.code }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    {% block content %}
+
+    {% endblock %}
+</main>
+
+<footer class="bg-primary py-4">
+    <div class="container-fluid container-lg">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{% url 'index_public:index' %}" class="footer-logo">
+                    <img src="{% static 'images/logo.png' %}" alt="" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-md-2">
+                <ul class="footer-menu">
+                    <li>
+                        <a href="{% url 'post_public:list' %}">{% trans 'Статистика' %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home_public:department_list' %}">{% trans 'Кафедры' %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home_public:teacher_list' %}">{% trans 'Преподаватели' %}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3 ms-auto me-0">
+                <div class="footer-copy">
+                    <span>{% trans 'Все права защищены' %}. {% now 'Y' %} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% block js %}
+
+{% endblock %}
+</body>
+
+</html>

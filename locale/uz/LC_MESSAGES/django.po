@@ -1,0 +1,691 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-14 22:27+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uz\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\category\apps.py:7 .\category\models.py:117
+#: .\core\templates\public\posts\detail.html:41 .\posts\models.py:60
+msgid "Категория"
+msgstr "Kategoriya"
+
+#: .\category\apps.py:8 .\category\models.py:71 .\category\models.py:118
+#: .\core\templates\public\departments\detail.html:55
+#: .\core\templates\public\teachers\detail.html:61
+msgid "Категории"
+msgstr "Kategoriyalar"
+
+#: .\category\models.py:26 .\category\models.py:27
+#: .\core\templates\public\posts\static_scientific.html:197
+msgid "Статистика научной деятельности"
+msgstr "Ilmiy faoliyat statistikasi"
+
+#: .\category\models.py:32 .\category\models.py:69 .\category\models.py:123
+#: .\core\templates\administrator\levels\list.html:23
+#: .\core\templates\administrator\levels\list.html:94
+#: .\core\templates\administrator\levels\list.html:100
+#: .\core\templates\administrator\levels\list.html:139
+#: .\core\templates\administrator\levels\list.html:145
+#: .\core\templates\administrator\posts\list.html:24
+#: .\core\templates\public\departments\detail.html:72
+#: .\core\templates\public\departments\list.html:51
+#: .\core\templates\public\index.html:67
+#: .\core\templates\public\posts\list.html:30
+#: .\core\templates\public\posts\own_list.html:39
+#: .\core\templates\public\teachers\detail.html:79 .\oauth\models.py:143
+msgid "Название"
+msgstr "Nomi"
+
+#: .\category\models.py:34 .\category\models.py:64
+msgid "Типы категорий"
+msgstr "Kategoriya turlari"
+
+#: .\category\models.py:35 .\category\models.py:72 .\category\models.py:130
+#: .\category\models.py:166 .\home\models.py:28 .\oauth\models.py:75
+#: .\oauth\models.py:109 .\oauth\models.py:127 .\oauth\models.py:145
+#: .\posts\models.py:64 .\posts\models.py:123
+msgid "Создано"
+msgstr "Yaratilgan"
+
+#: .\category\models.py:36 .\category\models.py:73 .\category\models.py:131
+#: .\category\models.py:167 .\home\models.py:29 .\oauth\models.py:76
+#: .\oauth\models.py:110 .\oauth\models.py:128 .\oauth\models.py:146
+#: .\posts\models.py:65 .\posts\models.py:124
+msgid "Обновлено"
+msgstr "Yangilangan"
+
+#: .\category\models.py:63
+msgid "Тип категории"
+msgstr "Kategoriya turi"
+
+#: .\category\models.py:125
+msgid "Удалено"
+msgstr "O'chirilgan"
+
+#: .\category\models.py:126
+msgid "Коэффициент"
+msgstr "Koefitsient"
+
+#: .\category\models.py:127
+msgid "Лимит"
+msgstr "Limit"
+
+#: .\category\models.py:128 .\oauth\models.py:138
+msgid "Группа"
+msgstr "Guruh"
+
+#: .\category\models.py:129 .\core\templates\administrator\posts\list.html:25
+#: .\core\templates\public\posts\list.html:49
+msgid "Автор"
+msgstr "Muallif"
+
+#: .\category\models.py:148
+msgid "Учебный балл"
+msgstr "O'quv balli"
+
+#: .\category\models.py:149
+msgid "Учебные баллы"
+msgstr "O'quv ballari"
+
+#: .\category\models.py:159 .\posts\models.py:16 .\posts\models.py:71
+msgid "Учебный год"
+msgstr "O'quv yili"
+
+#: .\category\models.py:161
+msgid "Больше 150"
+msgstr "150 dan ko'p"
+
+#: .\category\models.py:162
+msgid "Меньше 150"
+msgstr "150 dan kam"
+
+#: .\category\models.py:163
+msgid "Меньше 100"
+msgstr "100 dan kam"
+
+#: .\category\models.py:164
+msgid "Меньше 55"
+msgstr "55 dan kam"
+
+#: .\core\settings.py:99
+msgid "Русский"
+msgstr "Ruscha"
+
+#: .\core\settings.py:100
+msgid "O'zbekcha"
+msgstr ""
+
+#: .\core\templates\administrator\index.html:7
+#: .\core\templates\administrator\levels\list.html:13
+#: .\core\templates\administrator\posts\form.html:11
+#: .\core\templates\administrator\posts\list.html:15
+#: .\core\templates\base_admin.html:94 .\core\templates\base_public.html:47
+#: .\core\templates\public\index.html:6 .\core\templates\public\profile.html:42
+msgid "Главная"
+msgstr "Asosiy"
+
+#: .\core\templates\administrator\index.html:29
+#: .\core\templates\public\index.html:50
+msgid "Годовая статистика"
+msgstr "Yillik statistika"
+
+#: .\core\templates\administrator\index.html:30
+#: .\core\templates\public\index.html:51
+msgid "По академическим годам"
+msgstr "Akademik yillar bo'yicha"
+
+#: .\core\templates\administrator\index.html:42
+msgid "Общая статистика по категориям"
+msgstr "Kategoriyalar bo'yicha umumiy statistika"
+
+#: .\core\templates\administrator\index.html:80
+#: .\core\templates\administrator\index.html:166
+#: .\core\templates\base_public.html:53 .\core\templates\base_public.html:154
+#: .\core\templates\public\departments\detail.html:153
+#: .\core\templates\public\index.html:355
+#: .\core\templates\public\index.html:435
+#: .\core\templates\public\posts\static_scientific.html:5
+#: .\core\templates\public\teachers\detail.html:74
+#: .\core\templates\public\teachers\detail.html:149
+msgid "Статистика"
+msgstr "Statistika"
+
+#: .\core\templates\administrator\index.html:172
+#: .\core\templates\public\departments\detail.html:160
+#: .\core\templates\public\index.html:68 .\core\templates\public\index.html:441
+#: .\core\templates\public\teachers\detail.html:155 .\posts\models.py:21
+msgid "Год"
+msgstr "Yil"
+
+#: .\core\templates\administrator\index.html:178
+#: .\core\templates\public\departments\detail.html:167
+#: .\core\templates\public\index.html:447
+#: .\core\templates\public\posts\static_scientific.html:212
+#: .\core\templates\public\posts\static_scientific.html:258
+#: .\core\templates\public\teachers\detail.html:161
+msgid "Количество баллов"
+msgstr "Ballar soni"
+
+#: .\core\templates\administrator\index.html:284
+#: .\core\templates\public\index.html:258
+msgid "Cтатистика по категориям"
+msgstr "Kategoriyalar bo'yicha statistika"
+
+#: .\core\templates\administrator\levels\list.html:8
+#: .\core\templates\administrator\levels\list.html:14
+#: .\core\templates\public\teachers\list.html:54
+msgid "Ученые степени"
+msgstr "Ilmiy darajalar"
+
+#: .\core\templates\administrator\levels\list.html:9
+#: .\core\templates\administrator\levels\list.html:70
+#: .\core\templates\administrator\posts\list.html:10
+#: .\core\templates\public\posts\own_list.html:15
+msgid "Добавить"
+msgstr "Qo'shish"
+
+#: .\core\templates\administrator\levels\list.html:24
+msgid "Количество преподавателей"
+msgstr "O'qituvchilar soni"
+
+#: .\core\templates\administrator\levels\list.html:49
+#: .\core\templates\administrator\posts\list.html:56
+#: .\core\templates\public\departments\list.html:76
+#: .\core\templates\public\posts\list.html:59
+#: .\core\templates\public\posts\own_list.html:68
+#: .\core\templates\public\teachers\list.html:106
+msgid "Нет данных"
+msgstr "Ma'lumot yo'q"
+
+#: .\core\templates\administrator\levels\list.html:108
+#: .\core\templates\administrator\levels\list.html:153
+#: .\core\templates\administrator\posts\form.html:55
+#: .\core\templates\public\posts\form.html:56
+msgid "Сохранить"
+msgstr "Saqlash"
+
+#: .\core\templates\administrator\levels\list.html:116
+msgid "Редактировать"
+msgstr "Tahrirlash"
+
+#: .\core\templates\administrator\levels\list.html:161
+#: .\core\templates\administrator\levels\list.html:169
+#: .\core\templates\administrator\posts\list.html:82
+msgid "Удалить"
+msgstr "O'chirish"
+
+#: .\core\templates\administrator\levels\list.html:164
+msgid "Вы действительно хотите удалить ученную степень ?"
+msgstr "Siz haqiqatan ham ilmiy darajani o'chirishni xohlaysizmi?"
+
+#: .\core\templates\administrator\posts\form.html:12
+#: .\core\templates\administrator\posts\list.html:7
+#: .\core\templates\administrator\posts\list.html:16
+#: .\core\templates\base_admin.html:115 .\core\templates\base_public.html:84
+#: .\core\templates\public\posts\list.html:13
+msgid "Публикации"
+msgstr "Nashrlar"
+
+#: .\core\templates\administrator\posts\list.html:26
+#: .\core\templates\public\posts\list.html:33
+#: .\core\templates\public\posts\own_list.html:42
+msgid "Дата публикации"
+msgstr "Nashr etilgan sana"
+
+#: .\core\templates\administrator\posts\list.html:27
+#: .\core\templates\public\posts\detail.html:42
+#: .\core\templates\public\posts\list.html:32
+#: .\core\templates\public\posts\own_list.html:41
+msgid "Дата создания"
+msgstr "Yaratilgan sana"
+
+#: .\core\templates\administrator\posts\list.html:73
+msgid "Удалить публикацию"
+msgstr "Nashrni o'chirish"
+
+#: .\core\templates\administrator\posts\list.html:77
+msgid "Вы действительно хотите удалить эту публикацию?"
+msgstr "Siz haqiqatan ham ushbu nashrni o'chirishni xohlaysizmi?"
+
+#: .\core\templates\administrator\posts\list.html:81
+msgid "Отменить"
+msgstr "Bekor qilish"
+
+#: .\core\templates\base_admin.html:15
+msgid "Панель управления KPI"
+msgstr "KPI boshqaruv paneli"
+
+#: .\core\templates\base_admin.html:81 .\core\templates\base_public.html:95
+msgid "Выйти"
+msgstr "Chiqish"
+
+#: .\core\templates\base_admin.html:91
+msgid "Меню"
+msgstr "Menyu"
+
+#: .\core\templates\base_admin.html:96
+msgid "Страницы"
+msgstr "Sahifalar"
+
+#: .\core\templates\base_admin.html:120 .\core\templates\base_public.html:166
+msgid "Все права защищены"
+msgstr "Barcha huquqlar himoyalangan"
+
+#: .\core\templates\base_public.html:50 .\core\templates\public\index.html:61
+#: .\core\templates\public\posts\list.html:5
+msgid "Последняя активность"
+msgstr "Oxirgi faoliyat"
+
+#: .\core\templates\base_public.html:56 .\core\templates\base_public.html:160
+#: .\core\templates\public\departments\list.html:52
+#: .\core\templates\public\teachers\detail.html:5
+#: .\core\templates\public\teachers\detail.html:16
+#: .\core\templates\public\teachers\list.html:5
+#: .\core\templates\public\teachers\list.html:70 .\oauth\models.py:157
+msgid "Преподаватели"
+msgstr "O'qituvchilar"
+
+#: .\core\templates\base_public.html:59 .\core\templates\base_public.html:157
+#: .\core\templates\public\departments\detail.html:12
+#: .\core\templates\public\departments\list.html:5
+#: .\core\templates\public\departments\list.html:45 .\home\models.py:16
+msgid "Кафедры"
+msgstr "Kafedralar"
+
+#: .\core\templates\base_public.html:73
+msgid "Супер-админ"
+msgstr "Super-admin"
+
+#: .\core\templates\base_public.html:78
+msgid "Панель управление"
+msgstr "Boshqaruv paneli"
+
+#: .\core\templates\base_public.html:90 .\core\templates\public\profile.html:43
+msgid "Профиль"
+msgstr "Profil"
+
+#: .\core\templates\public\departments\detail.html:35
+#: .\core\templates\public\teachers\detail.html:41
+msgid "Общий рейтинг"
+msgstr "Umumiy reyting"
+
+#: .\core\templates\public\departments\detail.html:73
+#: .\core\templates\public\index.html:117
+#: .\core\templates\public\index.html:153
+#: .\core\templates\public\posts\list.html:31
+#: .\core\templates\public\posts\own_list.html:40
+#: .\core\templates\public\teachers\detail.html:80
+#: .\core\templates\public\teachers\list.html:81
+msgid "Баллы"
+msgstr "Ballar"
+
+#: .\core\templates\public\departments\detail.html:74
+#: .\core\templates\public\teachers\detail.html:81 .\posts\models.py:63
+msgid "Дата"
+msgstr "Sana"
+
+#: .\core\templates\public\departments\detail.html:75
+#: .\core\templates\public\index.html:69
+#: .\core\templates\public\teachers\detail.html:82
+msgid "Статуc"
+msgstr "Holat"
+
+#: .\core\templates\public\departments\detail.html:91
+#: .\core\templates\public\index.html:194
+#: .\core\templates\public\index.html:232
+#: .\core\templates\public\posts\detail.html:39
+#: .\core\templates\public\teachers\detail.html:104
+msgid "В процессе"
+msgstr "Jarayonda"
+
+#: .\core\templates\public\departments\detail.html:91
+#: .\core\templates\public\index.html:194
+#: .\core\templates\public\index.html:232
+#: .\core\templates\public\posts\detail.html:39
+#: .\core\templates\public\teachers\detail.html:105 .\posts\models.py:52
+msgid "Одобрено"
+msgstr "Ma'qullangan"
+
+#: .\core\templates\public\departments\list.html:35 .\home\models.py:21
+msgid "Название кафедры"
+msgstr "Kafedra nomi"
+
+#: .\core\templates\public\departments\list.html:38
+#: .\core\templates\public\teachers\list.html:63
+msgid "Фильтр"
+msgstr "Filtr"
+
+#: .\core\templates\public\departments\list.html:53
+msgid "Академическая"
+msgstr "Akademik"
+
+#: .\core\templates\public\departments\list.html:54
+msgid "Организационная"
+msgstr "Tashkiliy"
+
+#: .\core\templates\public\departments\list.html:55
+msgid "Научная деятельность"
+msgstr "Ilmiy faoliyat"
+
+#: .\core\templates\public\departments\list.html:56 .\home\apps.py:7
+#: .\home\apps.py:8
+msgid "Общее"
+msgstr "Umumiy"
+
+#: .\core\templates\public\index.html:17
+msgid "Экспорт в Excel"
+msgstr "Excelga eksport qilish"
+
+#: .\core\templates\public\index.html:40
+msgid "Топ рейтинг"
+msgstr "Top reyting"
+
+#: .\core\templates\public\index.html:42 .\core\templates\public\index.html:75
+msgid "Ещё"
+msgstr "Yana"
+
+#: .\core\templates\public\index.html:326
+msgid "Нарушения"
+msgstr "Qoida buzilishi"
+
+#: .\core\templates\public\index.html:366
+#: .\core\templates\public\index.html:371
+msgid "кол-во баллов"
+msgstr "ballar soni"
+
+#: .\core\templates\public\index.html:407
+msgid "нарушения"
+msgstr "qoida buzilishi"
+
+#: .\core\templates\public\login.html:10 .\core\templates\public\login.html:26
+msgid "Войти в KPI"
+msgstr "KPI tizimiga kirish"
+
+#: .\core\templates\public\login.html:48 .\core\templates\public\login.html:51
+msgid "Электронная почта"
+msgstr "Elektron pochta"
+
+#: .\core\templates\public\login.html:54 .\core\templates\public\login.html:56
+msgid "Пароль"
+msgstr "Parol"
+
+#: .\core\templates\public\login.html:61
+msgid "Войти"
+msgstr "Kirish"
+
+#: .\core\templates\public\login.html:69
+msgid "Войти через Hemis"
+msgstr "Hemis orqali kirish"
+
+#: .\core\templates\public\posts\detail.html:36 .\posts\models.py:59
+msgid "Индексация"
+msgstr "Indeksatsiya"
+
+#: .\core\templates\public\posts\detail.html:38
+#: .\core\templates\public\teachers\list.html:79 .\posts\models.py:58
+msgid "Статус"
+msgstr "Holat"
+
+#: .\core\templates\public\posts\detail.html:43
+msgid "Дата добавления"
+msgstr "Qo'shilgan sana"
+
+#: .\core\templates\public\posts\list.html:17
+#: .\core\templates\public\posts\own_list.html:24
+msgid "Выбрать по дате..."
+msgstr "Sanaga ko'ra tanlash..."
+
+#: .\core\templates\public\posts\list.html:18
+#: .\core\templates\public\posts\own_list.html:25
+msgid "Дата создании по убыванию"
+msgstr "Yaratilgan sana bo'yicha kamayish tartibida"
+
+#: .\core\templates\public\posts\list.html:19
+#: .\core\templates\public\posts\own_list.html:26
+msgid "Дата создании по возрастанию"
+msgstr "Yaratilgan sana bo'yicha o'sish tartibida"
+
+#: .\core\templates\public\posts\list.html:20
+#: .\core\templates\public\posts\own_list.html:27
+msgid "Дата публикации по убыванию"
+msgstr "Nashr etilgan sana bo'yicha kamayish tartibida"
+
+#: .\core\templates\public\posts\list.html:21
+#: .\core\templates\public\posts\own_list.html:28
+msgid "Дата публикации по возрастанию"
+msgstr "Nashr etilgan sana bo'yicha o'sish tartibida"
+
+#: .\core\templates\public\posts\list.html:44
+#: .\core\templates\public\posts\own_list.html:53
+msgid "Без названия"
+msgstr "Nomsiz"
+
+#: .\core\templates\public\posts\own_list.html:5
+#: .\core\templates\public\posts\own_list.html:13
+msgid "Мои публикации"
+msgstr "Mening nashrlarim"
+
+#: .\core\templates\public\posts\own_list.html:29
+msgid "С начала публикации на рассмотрении"
+msgstr "Nashrdan boshlab ko'rib chiqilmoqda"
+
+#: .\core\templates\public\posts\own_list.html:30
+msgid "С начала опубликованные"
+msgstr "Nashrdan boshlab chop etilgan"
+
+#: .\core\templates\public\posts\static_scientific.html:67
+msgid "Статистика ППС по KPI"
+msgstr "KPI bo'yicha PPS statistikasi"
+
+#: .\core\templates\public\posts\static_scientific.html:200
+msgid "Научные инновации"
+msgstr "Ilmiy innovatsiyalar"
+
+#: .\core\templates\public\profile.html:72
+msgid "ФИО"
+msgstr "F.I.O"
+
+#: .\core\templates\public\profile.html:81
+msgid "Идентификатор"
+msgstr "Identifikator"
+
+#: .\core\templates\public\profile.html:90
+msgid "Роль пользователя"
+msgstr "Foydalanuvchi roli"
+
+#: .\core\templates\public\profile.html:95
+msgid "Администратор"
+msgstr "Administrator"
+
+#: .\core\templates\public\profile.html:99 .\oauth\models.py:73
+#: .\oauth\models.py:156 .\posts\models.py:62
+msgid "Преподаватель"
+msgstr "O'qituvchi"
+
+#: .\core\templates\public\profile.html:108
+msgid "Обшей балл"
+msgstr "Umumiy ball"
+
+#: .\core\templates\public\teachers\detail.html:18
+msgid "Выберите"
+msgstr "Tanlang"
+
+#: .\core\templates\public\teachers\detail.html:40
+msgid "Должность"
+msgstr "Lavozim"
+
+#: .\core\templates\public\teachers\detail.html:42
+#: .\core\templates\public\teachers\list.html:80
+msgid "Дата регистрации"
+msgstr "Ro'yxatga olish sana"
+
+#: .\core\templates\public\teachers\list.html:15
+msgid "Экспорт на Excel"
+msgstr "Excelga eksport qilish"
+
+#: .\core\templates\public\teachers\list.html:39
+#: .\core\templates\public\teachers\list.html:78 .\home\models.py:15
+#: .\oauth\models.py:177
+msgid "Кафедра"
+msgstr "Kafedra"
+
+#: .\core\templates\public\teachers\list.html:40
+#: .\core\templates\public\teachers\list.html:55
+msgid "Все"
+msgstr "Barchasi"
+
+#: .\core\templates\public\teachers\list.html:47
+#: .\core\templates\public\teachers\list.html:77
+msgid "Ф.И.О"
+msgstr "F.I.O"
+
+#: .\home\models.py:27 .\oauth\models.py:64
+msgid "Изображение"
+msgstr "Rasm"
+
+#: .\oauth\apps.py:8
+msgid "Авторизация"
+msgstr "Avtorizatsiya"
+
+#: .\oauth\models.py:42 .\oauth\models.py:171
+msgid "Пользователь"
+msgstr "Foydalanuvchi"
+
+#: .\oauth\models.py:43
+msgid "Пользователи"
+msgstr "Foydalanuvchilar"
+
+#: .\oauth\models.py:52
+msgid "Email"
+msgstr "Email"
+
+#: .\oauth\models.py:55
+msgid "Имя"
+msgstr "Ism"
+
+#: .\oauth\models.py:58
+msgid "Фамилия"
+msgstr "Familiya"
+
+#: .\oauth\models.py:61
+msgid "Отчество"
+msgstr "Otasining ismi"
+
+#: .\oauth\models.py:67
+msgid "ID номер"
+msgstr "ID raqami"
+
+#: .\oauth\models.py:70
+msgid "Дата рождения"
+msgstr "Tug'ilgan sana"
+
+#: .\oauth\models.py:71
+msgid "Телефон"
+msgstr "Telefon"
+
+#: .\oauth\models.py:78
+msgid "Последний вход"
+msgstr "Oxirgi kirish"
+
+#: .\oauth\models.py:102 .\oauth\models.py:107
+msgid "Уровень преподавателя"
+msgstr "O'qituvchi darajasi"
+
+#: .\oauth\models.py:103
+msgid "Уровни преподавателей"
+msgstr "O'qituvchilarning darajalari"
+
+#: .\oauth\models.py:120 .\oauth\models.py:125
+msgid "Ученое звание"
+msgstr "Ilmiy unvon"
+
+#: .\oauth\models.py:121
+msgid "Ученые звания"
+msgstr "Ilmiy unvonlar"
+
+#: .\oauth\models.py:139
+msgid "Группы"
+msgstr "Guruhlar"
+
+#: .\oauth\models.py:184
+msgid "UUID"
+msgstr "UUID"
+
+#: .\oauth\views.py:63
+msgid "Пользователь не является учителем"
+msgstr "Foydalanuvchi o'qituvchi emas"
+
+#: .\posts\apps.py:7
+#: .\posts\models.py:46
+msgid "Посты"
+msgstr "Postlar"
+
+#: .\posts\models.py:17
+msgid "Учебные года"
+msgstr "O'quv yillari"
+
+#: .\posts\models.py:22
+msgid "Дата начала"
+msgstr "Boshlanish sanasi"
+
+#: .\posts\models.py:23
+msgid "Дата окончания"
+msgstr "Tugash sanasi"
+
+#: .\posts\models.py:34
+msgid "Это поле должно быть меньше чем поле Дата окончания"
+msgstr "Bu maydon Tugash sanasidan kichik bo'lishi kerak"
+
+#: .\posts\models.py:35
+msgid "Это поле должно быть больше чем поле Дата начала"
+msgstr "Bu maydon Boshlanish sanasidan katta bo'lishi kerak"
+
+#: .\posts\models.py:45 .\posts\models.py:121
+msgid "Пост"
+msgstr "Post"
+
+#: .\posts\models.py:51
+msgid "На рассмотрении"
+msgstr "Ko'rib chiqilmoqda"
+
+#: .\posts\models.py:55
+msgid "Заголовок"
+msgstr "Sarlavha"
+
+#: .\posts\models.py:56
+msgid "Текст"
+msgstr "Matn"
+
+#: .\posts\models.py:110
+msgid "Документ"
+msgstr "Hujjat"
+
+#: .\posts\models.py:111
+msgid "Документы"
+msgstr "Hujjatlar"
+
+#: .\posts\models.py:116
+msgid "Файл"
+msgstr "Fayl"
+
+#: .\posts\views.py:62
+msgid "Редактировать публикацию"
+msgstr "Nashrni tahrirlash"
+
+#: .\posts\views.py:65
+msgid "Добавить публикацию"
+msgstr "Nashr qo'shish"

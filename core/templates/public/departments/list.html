@@ -1,0 +1,98 @@
+{% extends 'base_public.html' %}
+{% load static i18n paginator %}
+
+{% block title %}
+    {% trans 'Кафедры' %} :: {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <section class="home">
+        <div class="container-fluid container-lg">
+            <div class="row">
+                <div class="form-group d-flex justify-content-end">
+                    {% if academic_year_list %}
+                        <select id="yearInput" class="form-control selectpicker" style="width: 200px">
+                            {% for academic_year in academic_year_list %}
+                                {% if request.GET.academic_year %}
+                                    <option value="{{ academic_year.id }}"
+                                            {% if academic_year.id == request.GET.academic_year|add:"0" %}
+                                            selected {% endif %}>{{ academic_year.years }}</option>
+                                {% else %}
+                                    <option value="{{ academic_year.id }}"
+                                            {% if academic_year.id == current_academic_year %}
+                                            selected {% endif %}>{{ academic_year.years }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        </div>
+                    {% endif %}
+            </div>
+            <div class="block-grey">
+                <form action="" method="get">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" name="name" class="form-control"
+                                   placeholder="{% trans 'Название кафедры' %}">
+                        </div>
+                        <div class="col col-auto">
+                            <button class="btn btn-primary" type="submit">{% trans 'Фильтр' %}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="block-grey">
+                <h2 class="block-grey__title">{% trans 'Кафедры' %}</h2>
+                <div class="works-table p-0">
+                    <table class="table">
+                        <thead class="thead-light">
+                        <tr>
+                            <th style="width:1%">#</th>
+                            <th style="width:300px">{% trans 'Название' %}</th>
+                            <th style="width:150px" class="text-center">{% trans 'Преподаватели' %}</th>
+                            <th style="width:100px" class="text-center">{% trans 'Академическая' %}</th>
+                            <th style="width:100px" class="text-center">{% trans 'Организационная' %}</th>
+                            <th style="width:100px" class="text-center">{% trans 'Научная деятельность' %}</th>
+                            <th style="width:100px" class="text-center">{% trans 'Общее' %}</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for department in department_list %}
+                            <tr>
+                                <th>{{ forloop.counter0|add:page_obj.start_index }}</th>
+                                <td>
+                                    <a href="{% url 'home_public:department_detail' department.id %}">{{ department.name }}</a>
+                                </td>
+                                <td class="text-center">{{ department.teachers_count }}</td>
+                                <td class="text-center">{{ department.academ_point|default_if_none:"0"|floatformat }} </td>
+                                <td class="text-center">{{ department.org_point|default_if_none:"0"|floatformat }} </td>
+                                <td class="text-center">{{ department.scien_point|default_if_none:"0"|floatformat }} </td>
+                                <td class="text-center">{{ department.total_coefficient|floatformat }} </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted fst-italic">
+                                    {% trans 'Нет данных' %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                {% get_public_pagination %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+        $("#yearInput").on('change', function (e) {
+            const year = $("#yearInput").val();
+            window.location.href = `?academic_year=${year}`;
+        });
+    </script>
+{% endblock %}

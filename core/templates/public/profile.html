@@ -1,0 +1,120 @@
+{% extends 'base_public.html' %}
+{% load i18n static %}
+
+{% block styles %}
+    <style>
+        .card shadow {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1rem;
+        }
+
+        .gutters-sm {
+            margin-right: -8px;
+            margin-left: -8px;
+        }
+
+        .gutters-sm > .col, .gutters-sm > [class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid container-lg">
+        <div class="main-body mt-3">
+            <nav aria-label="breadcrumb" class="main-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index_public:index' %}">{% trans 'Главная' %}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{% trans 'Профиль' %}</li>
+                </ol>
+            </nav>
+
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img
+                                        {% if request.user.image_url %}
+                                            src="{{ request.user.image_url }}"
+                                        {% else %}
+                                            src="{% static 'images/no_avatar.jpg' %}"
+                                        {% endif %}
+                                            alt="O'qituvchi" class="rounded-circle"
+                                            width="300">
+                                <div class="mt-3">
+                                    <h4>{{ request.user }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card shadow mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">{% trans 'ФИО' %}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ request.user }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">{% trans 'Идентификатор' %}</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ request.user.employee_id_number|default:'-' }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">{% trans 'Роль пользователя' %}</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    {% if request.user.is_superuser %}
+                                        <b class="text-danger">
+                                            {% trans 'Администратор' %}
+                                        </b>
+                                    {% else %}
+                                        <b class="text-primary">
+                                            {% trans 'Преподаватель' %}
+                                        </b>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if request.user.teacher %}
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">{% trans 'Обшей балл' %}</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        2
+                                    </div>
+                                </div>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

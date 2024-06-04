@@ -1,0 +1,102 @@
+{% extends 'base_admin.html' %}
+{% load static i18n paginator %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="main-title d-flex align-items-center justify-content-between">
+            <h1>{% trans 'Публикации' %}</h1>
+            <a href="{% url 'post_admin:create' %}" class="btn btn-primary rounded-5">
+                <i class="fas fa-plus"></i>
+                {% trans 'Добавить' %}
+            </a>
+        </div>
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'index_admin:index' %}">{% trans 'Главная' %}</a></li>
+            <li class="breadcrumb-item active">{% trans 'Публикации' %}</li>
+        </ol>
+
+        <div class="main-table">
+            <table class="interior-table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>{% trans 'Название' %}</th>
+                    <th>{% trans 'Автор' %}</th>
+                    <th>{% trans 'Дата публикации' %}</th>
+                    <th>{% trans 'Дата создания' %}</th>
+                    <th colspan="2"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for post in post_list %}
+                    <tr>
+                        <td>{{ forloop.counter0|add:page_obj.start_index }}</td>
+                        <td>
+                            <a href="{% url 'post_admin:admin_update' post.id %}">{{ post.title }}</a>
+                            <small>{{ post.category.name }}</small>
+                        </td>
+                        <td>{{ post.author.get_full_name }}</td>
+                        <td>{{ post.publication_date }}</td>
+                        <td>{{ post.creation_date }}</td>
+                        <td>
+                            <a href="{% url 'post_admin:admin_update' post.id %}" class="badge bg-primary"><i
+                                    class="fas fa-edit"></i></a>
+                        </td>
+                        <td>
+                            <button type="button" class="badge bg-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal" data-url="{% url 'post_admin:delete' post.id %}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted fst-italic">
+                            {% trans "Нет данных" %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            {% get_public_pagination %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">{% trans 'Удалить публикацию' %}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% trans 'Вы действительно хотите удалить эту публикацию?' %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">{% trans 'Отменить' %}</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">{% trans 'Удалить' %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButton = document.getElementById('confirmDelete');
+            const deleteModal = document.getElementById('deleteModal');
+            deleteModal.addEventListener('show.bs.modal', function (event) {
+                const url = event.relatedTarget.getAttribute('data-url');
+                deleteButton.onclick = function () {
+                    window.location.href = url;
+                };
+            });
+        });
+    </script>
+{% endblock %}

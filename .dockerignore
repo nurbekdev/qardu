@@ -1,0 +1,14 @@
+sample.env
+.env
+.gitignore
+backups/
+data/
+postgres_data/
+redis_data/
+docker-compose.yml
+Dockerfile
+README.md
+docker-compose.prod.yml
+__pycache__/
+.git/
+/.idea/

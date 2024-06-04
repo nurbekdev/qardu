@@ -1,0 +1,168 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>
+        {% block title %}
+            {% trans 'Панель управления KPI' %}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'magnific-popup/magnific-popup.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css"
+          integrity="sha512-ARJR74swou2y0Q2V9k0GbzQ/5vJ2RBSoCWokg4zkfM29Fb3vZEQyv0iWBMW/yvKgyHSR/7D64pFMmU8nYmbRkg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="{% static 'styles/admin.css' %}" rel="stylesheet"/>
+
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index_admin:index' %}">
+        <img src="{% static 'images/logo.png' %}" alt="">
+    </a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i>
+    </button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0" method="get">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Поиск..." aria-label="Search"
+                   aria-describedby="basic-addon2" name="name"/>
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown mx-3">
+            <a class="nav-link text-uppercase dropdown-toggle btn btn-outline-secondary"
+               href="#"
+               role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <i class="fa fa-globe"></i>
+                {{ LANGUAGE_CODE }}
+            </a>
+            <ul class="dropdown-menu">
+                {% for language in languages %}
+                    {% if language.code == LANGUAGE_CODE %}
+                        <li>
+                            <a class="dropdown-item text-uppercase active" data-lang="{{ language.code }}"
+                               href="/{{ language.code }}/administrator/">{{ language.code }}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a class="dropdown-item text-uppercase" data-lang="{{ language.code }}"
+                               href="/{{ language.code }}/administrator/">{{ language.code }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a
+                    class="nav-link"
+                    href="{% url 'oauth:logout' %}">
+                <i class="fas fa-sign-out-alt fa-fw"></i> {% trans 'Выйти' %}
+            </a>
+        </li>
+    </ul>
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">{% trans 'Меню' %}</div>
+                    <a class="nav-link" href="{% url 'index_admin:index' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                        {% trans 'Главная' %}
+                    </a>
+                    <div class="sb-sidenav-menu-heading">{% trans 'Страницы' %}</div>
+                    {#                    <a class="nav-link" href="{% url 'home_admin:teacher_level_list' %}">#}
+                    {#                        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>#}
+                    {#                        {% trans 'Учёные степени' %}#}
+                    {#                    </a>#}
+                    {#                    <a class="nav-link" href="{% url 'category_admin:list' %}">#}
+                    {#                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>#}
+                    {#                        {% trans 'Категории' %}#}
+                    {#                    </a>#}
+                    {#                    <a class="nav-link" href="{% url 'home_admin:department_list' %}">#}
+                    {#                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>#}
+                    {#                        {% trans 'Кафедры' %}#}
+                    {#                    </a>#}
+                    {#                    <a class="nav-link" href="{% url 'home_admin:teacher_list' %}">#}
+                    {#                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>#}
+                    {#                        {% trans 'Преподаватели' %}#}
+                    {#                    </a>#}
+                    <a class="nav-link" href="{% url 'post_admin:list' %}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                        {% trans 'Публикации' %}
+                    </a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                {% trans 'Все права защищены' %} &copy; {% now "Y" %}
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <main class="main">
+            {% if messages %}
+                <div class="container-fluid container-lg">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for message in messages %}
+                                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% block content %}
+
+            {% endblock %}
+        </main>
+    </div>
+</div>
+
+
+{% block modals %}
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"
+        integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'magnific-popup/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+
+{% block js %}
+
+{% endblock %}
+</body>
+</html>
