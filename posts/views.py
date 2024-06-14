@@ -12,6 +12,26 @@ from oauth.models import Teacher
 from posts.forms import PostForm, PublicPostForm
 from posts.models import Post
 
+# views.py
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views import View
+
+class PublishPostView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, id=kwargs["pk"])
+        post.is_published = not post.is_published
+        post.save()
+        return redirect("post_public:my_list")
+
+def delete_post_view(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    post.delete()
+    messages.success(request, "Пост успешно удален")
+    return redirect("post_public:my_list")
+
+
 
 class PostListAdminView(LoginRequiredMixin, generic.ListView):
     model = Post
@@ -19,7 +39,7 @@ class PostListAdminView(LoginRequiredMixin, generic.ListView):
     template_name = "administrator/posts/list.html"
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(PostListAdminView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["category_list"] = get_permission_queryset(self.request.user).filter(
             is_delete=False
         )
@@ -27,31 +47,35 @@ class PostListAdminView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-
         posts = Post.objects.filter(
             category__in=get_permission_queryset(self.request.user)
         )
-        if self.request.GET.get("category"):
-            return posts.filter(category=self.request.GET.get("category"))
 
-        if self.request.GET.get("name"):
-            name = self.request.GET.get("name")
-            return posts.filter(
+        category = self.request.GET.get("category")
+        name = self.request.GET.get("name")
+        select_data = self.request.GET.get("select-data")
+
+        if category:
+            posts = posts.filter(category=category)
+
+        if name:
+            posts = posts.filter(
                 Q(title__icontains=name)
                 | Q(teacher__first_name__icontains=name)
                 | Q(teacher__last_name__icontains=name)
                 | Q(teacher__father_name__icontains=name)
             )
 
-        if self.request.GET.get("select-data"):
-            if self.request.GET.get("select-data") == "date-publications-desc":
-                posts = Post.objects.all().order_by("-date")
-            elif self.request.GET.get("select-data") == "date-publications-asc":
-                posts = Post.objects.all().order_by("date")
-            elif self.request.GET.get("select-data") == "date-created-desc":
-                posts = Post.objects.all().order_by("-created")
-            elif self.request.GET.get("select-data") == "date-created-asc":
-                posts = Post.objects.all().order_by("created")
+        if select_data:
+            order_options = {
+                "date-publications-desc": "-date",
+                "date-publications-asc": "date",
+                "date-created-desc": "-created",
+                "date-created-asc": "created"
+            }
+            order_by = order_options.get(select_data)
+            if order_by:
+                posts = posts.order_by(order_by)
 
         return posts
 
@@ -71,7 +95,6 @@ def post_create_update_view(request, pk=None):
             return redirect("post_admin:list")
         else:
             message_error = "Пожалуйста, исправьте следующие ошибки:\n"
-
             for field in form:
                 if field.errors:
                     message_error += f"{field.label}: {field.errors}\n"
@@ -79,9 +102,7 @@ def post_create_update_view(request, pk=None):
     else:
         form = PostForm(instance=post)
 
-    return render(
-        request, "administrator/posts/form.html", {"form": form, "title": title}
-    )
+    return render(request, "administrator/posts/form.html", {"form": form, "title": title})
 
 
 class PostListPublicView(ListView):
@@ -90,29 +111,21 @@ class PostListPublicView(ListView):
     paginate_by = 12
 
     def get_queryset(self):
-        """
-        Retrieves the list of posts filtered by group ID and sorting criteria
-        provided through query parameters.
-        """
-        # Start with a base queryset
         queryset = Post.objects.all()
-
-        # Filtering by group ID
         group_id = self.request.GET.get("group")
+        select_data = self.request.GET.get("select-data")
+
         if group_id:
             try:
                 queryset = queryset.filter(category__group_id=group_id)
             except ValueError:
-                # Handle the case where group_id is not a valid integer
                 pass
 
-        # Sorting logic
-        select_data = self.request.GET.get("select-data")
         order_options = {
             "date-publications-desc": "-date",
             "date-publications-asc": "date",
             "date-created-desc": "-created",
-            "date-created-asc": "created",
+            "date-created-asc": "created"
         }
         order_by = order_options.get(select_data)
         if order_by:
@@ -149,24 +162,17 @@ class PostOwnListPublicView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        """
-        Retrieves the list of posts filtered by group ID and sorting criteria
-        provided through query parameters.
-        """
-        # Start with a base queryset
         queryset = Post.objects.filter(teacher=self.request.user.teacher)
-
-        # Sorting logic
         select_data = self.request.GET.get("select-data")
+
         order_options = {
             "date-publications-desc": "-date",
             "date-publications-asc": "date",
             "date-created-desc": "-created",
             "date-created-asc": "created",
             "status-desc": "-status",
-            "status-asc": "status",
+            "status-asc": "status"
         }
-
         order_by = order_options.get(select_data)
         if order_by:
             queryset = queryset.order_by(order_by)

@@ -32,7 +32,7 @@ class TeacherAdminListView(LoginRequiredMixin, generic.ListView):
             teachers = teachers.filter(
                 Q(first_name__icontains=name)
                 | Q(last_name__icontains=name)
-                | Q(father_name__contains=name)
+                | Q(father_name__icontains=name)
             )
 
         if self.request.GET.get("select-status"):
@@ -97,7 +97,7 @@ class TeacherPublicListView(generic.ListView):
             teachers = teachers.filter(
                 Q(first_name__icontains=name)
                 | Q(last_name__icontains=name)
-                | Q(father_name__contains=name)
+                | Q(father_name__icontains=name)
             )
         if self.request.GET.get("order_by") == "points_asc":
             return teachers.annotate(
@@ -142,7 +142,7 @@ class TeacherPublicDetailView(generic.DetailView):
             context["category_list"].append(
                 {
                     "category": category,
-                    "count": category.post_set.filter(teacher=self.object).count,
+                    "count": category.post_set.filter(teacher=self.object).count(),
                 }
             )
         return context
@@ -179,21 +179,21 @@ class DepartmentPublicListView(generic.ListView):
             total_coefficient=Sum("teachers__post__category__coefficient"),
             academ_points=Sum(
                 "teachers__post__category__coefficient",
-                # filter=Q(teacher__post__category__group=Group.objects.get(id=3)),
+                # filter=Q(teachers__post__category__group=Group.objects.get(id=3)),
             ),
             scien_points=Sum(
                 "teachers__post__category__coefficient",
-                # filter=Q(teacher__post__category__group=Group.objects.get(id=2)),
+                # filter=Q(teachers__post__category__group=Group.objects.get(id=2)),
             ),
             org_points=Sum(
                 "teachers__post__category__coefficient",
-                # filter=Q(teacher__post__category__group=Group.objects.get(id=1)),
+                # filter=Q(teachers__post__category__group=Group.objects.get(id=1)),
             ),
         )
 
         if self.request.GET.get("name"):
             return department_list.filter(
-                name__icontains=self.request.GET.get("name")
+                translations__name__icontains=self.request.GET.get("name")
             ).order_by("-total_coefficient")
         return department_list.order_by("-total_coefficient")
 
@@ -223,7 +223,7 @@ class DepartmentPublicDetailView(generic.DetailView):
         context["year_list"] = sorted(
             set(
                 Post.objects.filter(
-                    teacher__in=self.object.teacher_set.all()
+                    teacher__in=self.object.teachers.all()
                 ).values_list("date__year", flat=True)
             )
         )

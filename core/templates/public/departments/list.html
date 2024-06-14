@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="form-group d-flex justify-content-end">
                     {% if academic_year_list %}
-                        <select id="yearInput" class="form-control selectpicker" style="width: 200px">
+                        <select id="yearInput" class="form-select" style="width: 200px">
                             {% for academic_year in academic_year_list %}
                                 {% if request.GET.academic_year %}
                                     <option value="{{ academic_year.id }}"

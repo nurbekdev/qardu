@@ -2,54 +2,124 @@
 {% load i18n static %}
 
 {% block content %}
-    <section class="profile">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="profile-side">
-                        <div class="profile-info">
-                            <div class="profile-info__image">
-                                {% if post.teacher.image %}
-                                    <img src="{{ post.teacher.image.url }}" alt="">
-                                {% else %}
-                                    <img src="{% static 'images/banner1.jpg' %}" alt="">
-                                {% endif %}
-
-                            </div>
-                            <div class="profile-info__main">
-                                <h3>{{ post.teacher.get_full_name }}</h3>
-                                <span>{{ post.teacher.position }}</span>
-                            </div>
+<section class="profile">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="profile-side">
+                    <div class="profile-info">
+                        <div class="profile-info__image">
+                            {% if post.teacher.user.image_url %}
+                                <img src="{{ post.teacher.user.image_url }}" alt="">
+                            {% else %}
+                                <img src="{% static 'images/banner1.jpg' %}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="profile-info__main">
+                            <h3>{{ post.teacher.user.get_full_name }}</h3>
+                            <span>{{ post.teacher.user.name }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
-                    <div class="profile-main">
-                        <div class="profile-title">
-                            <h2>{{ post.title }}</h2>
-                        </div>
-                        <div class="profile-content">
-                            {{ post.body | safe }}
-                        </div>
-                        <div class="profile-footer">
+            </div>
+            <div class="col-md-9">
+                <div class="profile-main">
+                    <div class="profile-title">
+                        <h2>{{ post.title }}</h2>
+                    </div>
+                    <div class="profile-content">
+                        {{ post.body | safe }}
+                    </div>
+                    <div class="profile-footer">
+                        <div class="profile-details">
                             {% if post.indexing %}
-                                <p><strong>{% trans 'Индексация' %}:</strong> {{ post.indexing }}</p>
+                                <p><strong>{% trans 'Indeksatsiya' %}:</strong> {{ post.indexing }}</p>
                             {% endif %}
-                            <p><strong>{% trans 'Статус' %}:</strong> {% if post.status == 1 %}
-                                {% trans 'В процессе' %} {% elif post.status == 2 %} {% trans 'Одобрено' %} {% endif %}
+                            <p><strong>{% trans 'Holat' %}:</strong> 
+                                {% if post.status == 1 %}
+                                    {% trans 'Ko\'rib chiqilmoqda' %}
+                                {% elif post.status == 2 %}
+                                    {% trans 'Tasdiqlangan' %}
+                                {% endif %}
                             </p>
-                            <p><strong>{% trans 'Категория' %}:</strong> {{ post.category.name }}</p>
-                            <p><strong>{% trans 'Дата создания' %}:</strong> {{ post.date }}</p>
-                            <p><strong>{% trans 'Дата добавления' %}:</strong> {{ post.created.date }}</p>
+                            <p><strong>{% trans 'Kategoriya' %}:</strong> {{ post.category.name }}</p>
+                            <p><strong>{% trans 'Yaratilgan sana' %}:</strong> {{ post.date }}</p>
+                            <p><strong>{% trans 'Qo\'shilgan sana' %}:</strong> {{ post.created|date:"d M Y" }}</p>
+                            {% if post.document_set.exists %}
+                                <p><strong>{% trans 'Fayllar' %}:</strong></p>
+                                <ul class="file-list">
+                                    {% for document in post.document_set.all %}
+                                        <li><a href="{{ document.file.url }}">{{ document.file.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}
 
+{% block css %}
+<style>
+.profile-main {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.profile-title h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.profile-content {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.profile-footer {
+    margin-top: 20px;
+}
+
+.profile-footer p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.profile-footer .file-list {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-footer .file-list li {
+    margin-bottom: 5px;
+}
+
+.profile-footer .file-list a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.profile-footer .file-list a:hover {
+    text-decoration: underline;
+}
+
+.profile-details {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+.profile-details p {
+    margin: 10px 0;
+}
+</style>
+{% endblock %}
 
 {% block js %}
-
 {% endblock %}

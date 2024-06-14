@@ -36,4 +36,5 @@ class OAuth2Client:
         response = requests.get(
             self.resource_owner_url, headers={"Authorization": f"Bearer {access_token}"}
         )
+        # print(response.json(), "Nurbek")
         return response.json()

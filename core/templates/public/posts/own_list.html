@@ -19,7 +19,7 @@
 
                 <h2 class="block-grey__title">
                     <form action="" method="get" class="main-title">
-                        <select name="select-data" id="select-data" class="form-control selectpicker"
+                        <select name="select-data" id="select-data" class="form-select"
                                 onchange="this.form.submit();">
                             <option value="">{% trans 'Выбрать по дате...' %}</option>
                             <option value="date-created-desc">{% trans 'Дата создании по убыванию' %}</option>
@@ -78,13 +78,4 @@
             </div>
         </div>
     </section>
-{% endblock %}
-
-{% block js %}
-
-    <script>
-        $(function () {
-            $('.selectpicker').selectpicker();
-        });
-    </script>
 {% endblock %}

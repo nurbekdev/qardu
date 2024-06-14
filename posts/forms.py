@@ -5,80 +5,92 @@ from tinymce.widgets import TinyMCE
 from category.models import Category
 from oauth.models import Teacher
 
-from .models import Post
-
+from .models import Post, Document
 
 class PostForm(TranslatableModelForm):
     title = TranslatedField(
-        label="Заголовок",
+        label="Sarlavha",
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Заголовок"}
+            attrs={"class": "form-control", "placeholder": "Sarlavha"}
         ),
     )
     body = TranslatedField(
-        label="Текст", widget=TinyMCE(attrs={"cols": 80, "rows": 30})
+        label="Matn", widget=TinyMCE(attrs={"cols": 80, "rows": 30})
     )
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
-        label="Категория",
+        label="Kategoriya",
         widget=forms.Select(
-            attrs={"class": "form-control selectpicker", "data-live-search": "true"}
+            attrs={"class": "form-select", "data-live-search": "true"}
         ),
     )
     date = forms.DateField(
-        label="Дата",
+        label="Sana",
         widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
     )
     teacher = forms.ModelChoiceField(
         queryset=Teacher.objects.all(),
-        label="Преподаватель",
+        label="O'qituvchi",
         widget=forms.Select(
-            attrs={"class": "form-control selectpicker", "data-live-search": "true"}
+            attrs={"class": "form-select", "data-live-search": "true"}
         ),
     )
     indexing = forms.CharField(
-        label="Индексация",
+        label="Indeksatsiya",
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Индексация"}
+            attrs={"class": "form-control", "placeholder": "Indeksatsiya"}
         ),
+    )
+    file = forms.FileField(
+        label="Fayl",
+        required=False,
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
     )
 
     class Meta:
         model = Post
-        fields = ("title", "body", "indexing", "teacher", "category", "date")
+        fields = ("title", "body", "indexing", "teacher", "category", "date", "file")
 
 
 class PublicPostForm(TranslatableModelForm):
     title = TranslatedField(
-        label="Заголовок",
+        label="Sarlavha",
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Заголовок"}
+            attrs={"class": "form-control", "placeholder": "Sarlavha"}
         ),
     )
     body = TranslatedField(
-        label="Текст", widget=TinyMCE(attrs={"cols": 80, "rows": 30})
+        label="Matn", widget=TinyMCE(attrs={"cols": 80, "rows": 30})
     )
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
-        label="Категория",
+        label="Kategoriya",
         widget=forms.Select(
-            attrs={"class": "form-control selectpicker", "data-live-search": "true"}
+            attrs={"class": "form-select", "data-live-search": "true"}
         ),
     )
     date = forms.DateField(
-        label="Дата",
+        label="Sana",
         widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}),
     )
     indexing = forms.CharField(
-        label="Индексация",
+        label="Indeksatsiya",
         widget=forms.TextInput(
-            attrs={"class": "form-control", "placeholder": "Индексация"}
+            attrs={"class": "form-control", "placeholder": "Indeksatsiya"}
         ),
+    )
+    file = forms.FileField(
+        label="Fayl",
+        required=False,
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
     )
 
     class Meta:
         model = Post
-        fields = ("title", "body", "indexing", "category", "date")
+        fields = ("title", "body", "indexing", "category", "date", "file")
 
     def save(self, commit=True):
-        return super().save(commit)
+        post = super().save(commit)
+        if self.cleaned_data['file']:
+            Document.objects.create(post=post, file=self.cleaned_data['file'])
+        return post

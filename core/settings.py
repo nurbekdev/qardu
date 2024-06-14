@@ -11,9 +11,9 @@ env = Env(
     DEBUG_PROPAGATE_EXCEPTIONS=(bool, True),
     SECRET_KEY=(str, "aliwy-w)qwg1##ln(ig)j$s6oz#vp4zq4hm11ao$j9b!h6k*8x"),
     ALLOWED_HOSTS=(list, ["*"]),
-    POSTGRES_DB="postgres",
-    POSTGRES_USER="nurbek",
-    POSTGRES_PASSWORD="Polatov2004",
+    POSTGRES_DB=(str, "tietkpiu_kpitiet"),
+    POSTGRES_USER=(str, "tietkpiu_nurbek"),
+    POSTGRES_PASSWORD=(str, "Polatov2004"),
     POSTGRES_HOST=(str, "localhost"),
     POSTGRES_PORT=(int, 5432),
     REDIS_HOST=(str, "localhost"),
@@ -145,12 +145,12 @@ TEMPLATES = [
     },
 ]
 
-OAUTH2_CLIENT_SECRET = env("OAUTH2_CLIENT_SECRET")
-OAUTH2_CLIENT_ID = env("OAUTH2_CLIENT_ID")
-OAUTH2_REDIRECT_URI = env("OAUTH2_REDIRECT_URI")
-OAUTH2_AUTHORIZE_URL = env("OAUTH2_AUTHORIZE_URL")
-OAUTH2_TOKEN_URL = env("OAUTH2_TOKEN_URL")
-OAUTH2_USER_INFO_URL = env("OAUTH2_USER_INFO_URL")
+OAUTH2_CLIENT_SECRET = "a7KxixPt8VpfP3xc3RAJk44wQq5_OiNOfDcHaA9V"
+OAUTH2_CLIENT_ID = 4
+OAUTH2_REDIRECT_URI = "https://tiet-kpi.uz/hemis/callback/"
+OAUTH2_AUTHORIZE_URL = "https://hemis.tdtutf.uz/oauth/authorize"
+OAUTH2_TOKEN_URL = "https://hemis.tdtutf.uz/oauth/access-token"
+OAUTH2_USER_INFO_URL = "https://hemis.tdtutf.uz/oauth/api/user?fields=id,uuid,employee_id_number,type,roles,name,login,email,picture,firstname,surname,patronymic,birth_date,university_id,phone"
 
 DATABASES = {
     "default": {

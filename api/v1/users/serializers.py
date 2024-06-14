@@ -13,19 +13,10 @@ class TeacherSerializer(ModelSerializer):
         model = Teacher
         fields = [
             "id",
-            "first_name_uz",
-            "first_name_ru",
-            "first_name_en",
+            "firstname",
             "ext_date",
-            "last_name_uz",
-            "last_name_ru",
-            "last_name_en",
-            "father_name_uz",
-            "father_name_ru",
-            "father_name_en",
-            "position_uz",
-            "position_ru",
-            "position_en",
+            "last_name",
+            "father_name",
             "image",
             "department",
             "level",
@@ -51,7 +42,7 @@ class TeacherSerializer(ModelSerializer):
 
 class TeacherStatisticSerializer(ModelSerializer):
     total_point = SerializerMethodField(read_only=True)
-    full_name = CharField(source="get_full_name", read_only=True)
+    fullname = CharField(source="get_full_name", read_only=True)
 
     def get_total_point(self, obj):
         return obj.total_point
@@ -62,19 +53,10 @@ class TeacherStatisticSerializer(ModelSerializer):
             "id",
             "total_point",
             "position",
-            "full_name",
-            "first_name_uz",
-            "first_name_ru",
-            "first_name_en",
-            "last_name_uz",
-            "last_name_ru",
-            "last_name_en",
-            "father_name_uz",
-            "father_name_ru",
-            "father_name_en",
-            "position_uz",
-            "position_ru",
-            "position_en",
+            "fullname",
+            "first_name",
+            "last_name",
+            "father_name",
             "image",
             "department",
             "level",

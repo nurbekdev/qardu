@@ -81,7 +81,7 @@ class PostStatisticSerializer(ModelSerializer):
         model = Post
         fields = [
             "id",
-            "title_uz",
+            # "title_uz",
             "title_ru",
             "title_en",
             "title",

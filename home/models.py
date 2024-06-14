@@ -39,6 +39,10 @@ class Department(TranslatableModel):
             total=models.Sum("post__category__coefficient")
         )["total"]
 
+        # total_points qiymatini tekshirish va None bo'lsa 0 ga o'zgartirish
+        if total_points is None:
+            total_points = 0
+
         return round(total_points, 1)
 
     def __str__(self):

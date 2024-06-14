@@ -69,11 +69,15 @@ class OAuthCallbackView(APIView):
                 messages.error(request, _("Пользователь не является учителем"))
                 return redirect("oauth:login")
 
+            if user_details.get("email") is None:
+                messages.error(request, _("Не удалось получить адрес электронной почты"))
+                return redirect("oauth:login")
+
             user, created = User.objects.get_or_create(
                 teacher__uuid=user_details.get("uuid"),
                 defaults={
                     "email": user_details.get("email"),
-                    "first_name": user_details.get("first_name"),
+                    "first_name": user_details.get("firstname"),
                     "last_name": user_details.get("surname"),
                     "fathers_name": user_details.get("patronymic"),
                     "image_url": user_details.get("picture"),

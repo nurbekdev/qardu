@@ -10,33 +10,33 @@ from parler.models import TranslatableModel, TranslatedFields
 from category.models import AcademicPoints, Category
 from oauth.models import Teacher
 
-
 class AcademicYear(models.Model):
     class Meta:
-        verbose_name = _("Учебный год")
-        verbose_name_plural = _("Учебные года")
+        verbose_name = _("O'quv yili")
+        verbose_name_plural = _("O'quv yillari")
         ordering = ("-from_date",)
         db_table = "academic_years"
 
     years = models.CharField(
-        verbose_name=_("Год"), max_length=64, null=True, blank=True
+        verbose_name=_("Yil"), max_length=64, null=True, blank=True
     )
-    from_date = models.DateField(verbose_name=_("Дата начала"))
-    to_date = models.DateField(verbose_name=_("Дата окончания"))
+    from_date = models.DateField(verbose_name=_("Boshlanish sanasi"))
+    to_date = models.DateField(verbose_name=_("Tugash sanasi"))
 
     def save(self, *args, **kwargs):
         self.years = f"{self.from_date.year}-{self.to_date.year}"
         super(AcademicYear, self).save(*args, **kwargs)
-        AcademicPoints.objects.create(academic_year=self)
+        if not AcademicPoints.objects.filter(academic_year=self).exists():
+            AcademicPoints.objects.create(academic_year=self)
 
     def clean(self):
         if self.from_date >= self.to_date:
             raise forms.ValidationError(
                 {
                     "from_date": _(
-                        "Это поле должно быть меньше чем поле Дата окончания"
+                        "Bu maydon Tugash sanasi maydonidan kichik bo'lishi kerak"
                     ),
-                    "to_date": _("Это поле должно быть больше чем поле Дата начала"),
+                    "to_date": _("Bu maydon Boshlanish sanasi maydonidan katta bo'lishi kerak"),
                 },
             )
 
@@ -46,71 +46,68 @@ class AcademicYear(models.Model):
 
 class Post(TranslatableModel):
     class Meta:
-        verbose_name = _("Пост")
-        verbose_name_plural = _("Посты")
+        verbose_name = _("Post")
+        verbose_name_plural = _("Postlar")
         ordering = ("-date",)
         db_table = "posts"
 
     STATUS_CHOICES = (
-        (1, _("На рассмотрении")),
-        (2, _("Одобрено")),
+        (1, _("Ko'rib chiqilmoqda")),
+        (2, _("Tasdiqlangan")),
     )
     translations = TranslatedFields(
-        title=models.CharField(verbose_name=_("Заголовок"), max_length=255),
-        body=models.TextField(verbose_name=_("Текст")),
+        title=models.CharField(verbose_name=_("Sarlavha"), max_length=255),
+        body=models.TextField(verbose_name=_("Matn")),
     )
     status = models.PositiveSmallIntegerField(
-        choices=STATUS_CHOICES, default=1, verbose_name=_("Статус")
+        choices=STATUS_CHOICES, default=1, verbose_name=_("Holat")
     )
     indexing = models.CharField(
-        max_length=255, null=True, blank=True, verbose_name=_("Индексация")
+        max_length=255, null=True, blank=True, verbose_name=_("Indeksatsiya")
     )
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, verbose_name=_("Категория")
+        Category, on_delete=models.CASCADE, verbose_name=_("Kategoriya")
     )
     teacher = models.ForeignKey(
         Teacher,
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        verbose_name=_("Преподаватель"),
+        verbose_name=_("O'qituvchi"),
     )
-    date = models.DateField(verbose_name=_("Дата"))
-    created = models.DateTimeField(auto_now_add=True, verbose_name=_("Создано"))
-    updated = models.DateTimeField(auto_now=True, verbose_name=_("Обновлено"))
+    date = models.DateField(verbose_name=_("Sana"))
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_("Yaratilgan"))
+    updated = models.DateTimeField(auto_now=True, verbose_name=_("Yangilangan"))
     academic_years = models.ForeignKey(
         to=AcademicYear,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name=_("Учебный год"),
+        verbose_name=_("O'quv yili"),
     )
 
     objects = TranslatableManager()
 
     def save(self, *args, **kwargs):
-        academic_year = AcademicYear.objects.last()
-
         if self.date:
-            academic_year = academic_year.filter(
+            academic_year = AcademicYear.objects.filter(
                 from_date__lte=self.date, to_date__gte=self.date
-            )
+            ).first()
         else:
             today = date.today()
-            academic_year = academic_year.filter(
+            academic_year = AcademicYear.objects.filter(
                 from_date__lte=today, to_date__gte=today
-            )
+            ).first()
+
         self.academic_years = academic_year
         super(Post, self).save(*args, **kwargs)
 
-    def academic_year(self):
+    def get_academic_year_display(self):
         if int(self.date.strftime("%-m")) < 9:
             year = f'{int(self.date.strftime("%Y")) - 1} - {self.date.strftime("%Y")}'
-            return year
-
-        elif int(self.date.strftime("%-m")) > 8:
+        else:
             year = f'{self.date.strftime("%Y")} - {int(self.date.strftime("%Y")) + 1}'
-            return year
+        return year
 
     def __str__(self):
         return f"{self.teacher} | {self.safe_translation_getter('title', any_language=True)} | {self.category}"
@@ -122,14 +119,14 @@ def upload_to_documents(_, filename):
 
 class Document(models.Model):
     class Meta:
-        verbose_name = _("Документ")
-        verbose_name_plural = _("Документы")
+        verbose_name = _("Hujjat")
+        verbose_name_plural = _("Hujjatlar")
         db_table = "documents"
 
-    file = models.FileField(upload_to=upload_to_documents, verbose_name=_("Файл"))
-    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, verbose_name=_("Пост"))
-    created = models.DateTimeField(auto_now_add=True, verbose_name=_("Создано"))
-    updated = models.DateTimeField(auto_now=True, verbose_name=_("Обновлено"))
+    file = models.FileField(upload_to=upload_to_documents, verbose_name=_("Fayl"))
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, verbose_name=_("Post"))
+    created = models.DateTimeField(auto_now_add=True, verbose_name=_("Yaratilgan"))
+    updated = models.DateTimeField(auto_now=True, verbose_name=_("Yangilangan"))
 
     def __str__(self):
         return f"{self.id} | {self.file}"

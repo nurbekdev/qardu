@@ -110,7 +110,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="coefficient">Группа:</label>
-                                <select class="selectpicker form-control" name="group" id="group" required>
+                                <select class="form-select" name="group" id="group" required>
                                     {% for group in group_list %}
                                         <option value="{{ group.id }}">{{ group.name }}</option>
                                     {% endfor %}
@@ -173,7 +173,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="groupE">Группа:</label>
-                                <select class="selectpicker form-control" name="groupE" id="groupE" required>
+                                <select class="form-select" name="groupE" id="groupE" required>
                                     {% for group in group_list %}
                                         <option value="{{ group.id }}">{{ group.name }}</option>
                                     {% endfor %}
@@ -288,10 +288,6 @@
                 $("#coefficientE").val(data.coefficient);
                 $("#limitE").val(data.limit);
                 $("#groupE").val(data.group).trigger('change');
-
-                setTimeout(function () {
-                    $('.selectpicker').selectpicker('refresh');
-                }, 500);
             });
         });
         $("#saveEditCategory").click(function (e) {

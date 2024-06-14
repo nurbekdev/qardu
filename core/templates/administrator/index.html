@@ -6,7 +6,7 @@
         <div class="main-title d-flex align-items-center justify-content-between">
             <h1>{% trans 'Главная' %}</h1>
             <div class="form-group d-flex">
-                <select id="yearInput" class="form-control selectpicker">
+                <select id="yearInput" class="form-select">
                     {% for academic_year in academic_year_list %}
                         {% if request.GET.academic_year %}
                             <option value="{{ academic_year.id }}"
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-xl-6">
                 <div class="block-grey">
-                    <select id="reportType" class="form-control selectpicker">
+                    <select id="reportType" class="form-select">
                         <option value="1">{% trans 'Годовая статистика' %}</option>
                         <option value="2">{% trans 'По академическим годам' %}</option>
                     </select>

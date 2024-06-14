@@ -10,7 +10,7 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="selectDepartment">{% trans 'Кафедры' %}</label>
-                                <select class="form-control selectpicker" name="department" id="selectDepartment">
+                                <select class="form-select" name="department" id="selectDepartment">
                                     {% for div in department_list %}
                                         {% if div.id == department.id %}
                                             <option value="{{ div.id }}" selected>{{ div.name }}</option>
@@ -128,9 +128,6 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script>
-        $(function () {
-            $('.selectpicker').selectpicker();
-        });
 
         department_chart = Highcharts.chart('detailChart', {
             chart: {

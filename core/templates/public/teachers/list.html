@@ -15,7 +15,7 @@
                             {% trans 'Экспорт на Excel' %}
                         </a>
                         {% if academic_year_list %}
-                            <select name="academic_year" id="yearInput" class="form-control selectpicker"
+                            <select name="academic_year" id="yearInput" class="form-select"
                                     style="width: 200px">
                                 {% for academic_year in academic_year_list %}
                                     {% if request.GET.academic_year %}
@@ -35,7 +35,7 @@
                 <div class="block-grey">
                     <div class="row">
                         <div class="col-md-3">
-                            <select name="department" class="form-control selectpicker" data-live-search="true"
+                            <select name="department" class="form-control" data-live-search="true"
                                     title="{% trans 'Кафедра' %}">
                                 <option value="">{% trans 'Все' %}</option>
                                 {% for department in department_list %}
@@ -50,7 +50,7 @@
                             <input type="text" name="uuid" class="form-control" placeholder="ID">
                         </div>
                         <div class="col">
-                            <select name="level" class="form-control selectpicker" data-live-search="true"
+                            <select name="level" class="form-select" data-live-search="true"
                                     title="{% trans 'Ученые степени' %}">
                                 <option value="">{% trans 'Все' %}
                                     {% for level in teacher_level_list %}
@@ -85,18 +85,18 @@
                         {% for teacher in teacher_list %}
                             <tr>
                                 <th>{{ forloop.counter0|add:page_obj.start_index }}</th>
-                                {% if teacher.uuid %}
-                                    <th>{{ teacher.uuid }}</th>
+                                {% if teacher.id %}
+                                    <th>{{ teacher.id }}</th>
                                 {% else %}
                                     <th> -</th>
                                 {% endif %}
 
                                 <td>
-                                    <a href="{% url 'home_public:teacher_detail' teacher.id %}">{{ teacher.get_full_name }}</a>
+                                    <a href="{% url 'home_public:teacher_detail' teacher.id %}">{{ teacher.user.get_full_name }}</a>
                                 </td>
                                 <td>{{ teacher.department.name }}</td>
                                 <td>{{ teacher.get_status_display }}</td>
-                                <td>{{ teacher.created.date }}</td>
+                                <td>{{ teacher.user.created.date }}</td>
                                 <td class="text-center">{{ teacher.total_points }}</td>
 
                             </tr>
@@ -120,15 +120,10 @@
 
 {% block js %}
     <script>
-        $(function () {
-            $('.selectpicker').selectpicker();
-        });
 
         $("#yearInput").on('change', function (e) {
             const year = $("#yearInput").val();
-            window.location.href = `?academic_year=${year}`;
-
-
+            if (year) window.location.href = `?academic_year=${year}`;
         });
     </script>
     <script>

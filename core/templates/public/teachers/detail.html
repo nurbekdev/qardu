@@ -14,13 +14,13 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="selectTeacher">{% trans 'Преподаватели' %}</label>
-                                <select class="form-control selectpicker" name="teacher" id="selectTeacher"
+                                <select class="form-select" name="teacher" id="selectTeacher"
                                         data-live-search="true" title="{% trans 'Выберите' %}">
                                     {% for teach in teacher_list %}
                                         {% if teach.id == teacher.id %}
-                                            <option value="{{ teach.id }}" selected>{{ teach.get_full_name }}</option>
+                                            <option value="{{ teacher.id }}" selected>{{ teacher.user.get_full_name }}</option>
                                         {% else %}
-                                            <option value="{{ teach.id }}">{{ teach.get_full_name }}</option>
+                                            <option value="{{ teacher.id }}">{{ teach.user.get_full_name }}</option>
                                         {% endif %}
                                     {% endfor %}
                                 </select>
@@ -28,18 +28,18 @@
                         </form>
                         <div class="profile-info">
                             <div class="profile-info__image">
-                                {% if teacher.image %}
-                                    <img src="{{ teacher.image.url }}" alt="">
+                                {% if teacher.user.image_url %}
+                                    <img src="{{ teacher.user.image_url }}" alt="">
                                 {% else %}
                                     <img src="{% static 'public/images/../../../static/images/banner1.jpg' %}" alt="">
                                 {% endif %}
 
                             </div>
                             <div class="profile-info__main">
-                                <h3>{{ teacher.get_full_name }}</h3>
-                                <span>{% trans 'Должность' %}: {{ teacher.position|default_if_none:'' }}</span> <br>
-                                <span>{% trans 'Общий рейтинг' %}: {{ teacher.get_total_point }}</span> <br>
-                                <span>{% trans 'Дата регистрации' %}:<br> {{ teacher.created.date }}</span>
+                                <h3>{{ teacher.user.get_full_name }}</h3>
+                                <span>{% trans 'Должность' %}: {{ teacher.user.employee_id_number|default:'-' }}</span> <br>
+                                <span>{% trans 'Общий рейтинг' %}: {{ teacher.user.get_total_point|default:'2' }}</span> <br>
+                                <span>{% trans 'Дата регистрации' %}:<br> {{ teacher.user.created.date }}</span>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                 <div class="col-md-9">
                     <div class="profile-main">
                         <div class="profile-title">
-                            <h2>{{ teacher.get_full_name }}</h2>
+                            <h2>{{ teacher.user.get_full_name }}</h2>
                         </div>
                         <div class="row">
                             <div class="col-md-8">
@@ -125,10 +125,6 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script>
-        $(function () {
-            $('.selectpicker').selectpicker();
-        });
-
         teacher_chart = Highcharts.chart('detailChart', {
             chart: {
                 type: 'column'
